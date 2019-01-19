@@ -1,0 +1,82 @@
+---
+title: "STA305 HW1"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+# Question 1
+
+In order to find the probability that a bowler knocked over more than 200 pins over 31 frames, we need to find the mean and standard deviation of the pmf over 31 frames. 
+Since the events are independent the formulas for mean and standard deviation are as follows when adding event's X and Y:
+
+$$\mu_t = \mu_x + \mu_y $$
+$$\sigma_t = \sqrt{\sigma_x^2 + \sigma_y^2} $$
+Looking back at the problem we know that each independent event has a mean of 5.7 pins and a standard deviation of 1.9 pins. Therefore the mean of the pmf over 31 frames will be $31 \times 5.7 = 176.7$. To find the total standard deviation we solve the equation $\sigma_t = \sqrt{31(1.9^2)} = 10.57875$.
+
+Now we have the pmf over 31 frames with a mean of 176.7 pins and standard deviation of 10.57875 pins. The problem states that the pmf is roughly symmetric so we will use a normal distribution for our calculations. We will use R's pnorm command to take 1 - (probability of scoring 200 pins or less over 31 pins).
+
+
+```{r}
+signif((1 - pnorm(200, 176.7, 10.57875)), digits = 3)
+```
+In conclusion, there is a .0138 probability that a person that bowls 31 frames will knock over more than 200 pins. 
+
+\newpage 
+#Question 2:
+
+## a):
+
+In order to find the standard error of $v_1$ we need to isolate for $v_1$.
+
+We will take $(M_1 + M_2 + M_3) - (M_4 + M_5)$ and expand the H's for each one.
+
+$$(M_1 + M_2 + M_3) -(M_4 + M_4) =  (H_{11} + H_{12} + H_{13} + H_{21} + H_{22} + H_{24} + H_{31} +H_{33} +H_{34} ) -(H_{42} + H_{43} + H_{44} + H_{52} + H_{53} + H_{54})$$ 
+Now we will convert the H's into V's:
+$$(M_1 + M_2 + M_3) = 3v_1 + 2v_2 + 2v_3 +2v_4$$
+$$(M_4 + M_5) = 2v_2 + 2v_3 + 2v_4 $$
+As we can see the $v's$ will end up cancelling.
+
+$$(M_1 + M_2 + M_3) - (M_4 + M_5) = 3v_1 + 2v_2 + 2v_3 +2v_4 -2v_2 + 2v_3 + 2v_4 = 3v_1 $$
+Now, we need to find the standard deviation of $v_1$. To do so we will find:
+$$sd(\frac{(M_1 + M_2 + M_3) - (M_4 + M_5)}{3})$$
+
+To make the calculations easier I will first find  $sd((M_1 + M_2 + M_3) - (M_4 + M_5))$
+$$sd((M_1 + M_2 + M_3) - (M_4 + M_5)) = \sqrt{3\sigma^2 + 3\sigma^2 + 3\sigma^2 + 3\sigma^2 + 3\sigma^2} = \sqrt{15\sigma^2} = \sqrt{15}\sigma$$
+$$sd(\frac{(M_1 + M_2 + M_3) - (M_4 + M_5)}{3}) = \frac{\sqrt{15}}{3}\sigma $$
+
+## b)
+
+In order to find $\hat{v_1}$ we can take $\frac{M_1 + M_2}{2}$. We need to now find the sd of $\hat{v_1}$:
+
+$$sd(\hat{v_1}) = sd(\frac{M_1 + M_2}{2}) = \frac{\sqrt{\sigma^2 + \sigma^2}}{2} = \frac{\sigma}{\sqrt2}$$
+
+
+## c)
+
+I prefer the experimental plan in part b because it has a lower standard deviation for $\hat{v_1}$. This is because $\frac{1}{\sqrt2} < \frac{\sqrt{15}}{3}  $.
+\newpage
+
+# Question 3:
+
+### 1. State the objective:
+To determine if donors give more money per donation when they are told that their donation's impact will be matched. 
+
+### 2. Response:
+Average dollar value of donation. 
+
+### 3. Choose 1 factor and its factor levels:
+The factor is telling the donor whether or not their donation is being matched.
+
+The factor levels are as follows:
+0: The donor is not told that their donation is being matched.
+1: The donor is told that their donation is being matched.
+
+### 4. Experimental Design:
+
+We are going to block in pairs based off of income. We are going to create pairs of donors with similar incomes 
+
+
+
+
